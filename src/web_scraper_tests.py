@@ -11,11 +11,6 @@ class ParseTests(unittest.TestCase):
 
     def test_fetch_data(self):
         fetched_data = retrieve_packs()
-        file_path = os.path.join(DATA_DIR, "data.json")
-        print (file_path)
-        f = open(file_path, "w")
-        f.write(json.dumps(fetched_data, indent=4))
-        f.close()
         self.assertIsNotNone(fetched_data)
 
     def test_get_sorted_genres(self):
@@ -25,7 +20,7 @@ class ParseTests(unittest.TestCase):
             data = json.loads(f.read())
 
         genre_names = get_sort_genres(data)
-        self.assertTrue(len(genre_names) > 0)
+        self.assertTrue(len(genre_names) == 47)
 
         for i in range(len(genre_names) - 2):
             self.assertTrue(genre_names[i] < genre_names[i + 1])
@@ -37,7 +32,7 @@ class ParseTests(unittest.TestCase):
             data = json.loads(f.read())
 
         hiphop_packs = get_genres_hiphop(data)
-        self.assertTrue(len(hiphop_packs) > 0)
+        self.assertTrue(len(hiphop_packs) == 7)
 
         for pack in hiphop_packs:
             self.assertTrue("hip-hop" in pack["genres"])
